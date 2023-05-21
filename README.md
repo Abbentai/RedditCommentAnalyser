@@ -11,7 +11,7 @@ In the case of PyCharm this can be done by opening up the IDE and navigating to 
 5) Wait for the virtual environment to be fully created and the packages to install
 6) Run RedditGUI.py
 
-Usage
+How to Use
 -----------------------------
 The programs requires two main sources of input, 1st being the reddit url of the post you wish to extract the comments from and the 2nd being the starting name of the reports to be generated.
 
