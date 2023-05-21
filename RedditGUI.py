@@ -381,7 +381,6 @@ root.config(menu=menubar)
 root.iconbitmap("reddit.ico")
 root.mainloop()
 
-print(user_input.get())
 
 
 
