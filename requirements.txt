@@ -2,3 +2,4 @@ nltk~=3.8.1
 praw~=7.7.0
 text2emotion~=0.0.5
 vaderSentiment~=3.3.2
+emoji~=1.6.3
