@@ -11,7 +11,7 @@ In the case of PyCharm this can be done by opening up the IDE and navigating to 
 5) Wait for the virtual environment to be fully created and the packages to install
 6) Run RedditGUI.py
 
-Video Showing Installation
+Demo Video
 -----------------------------
 Youtube Link Here
 
