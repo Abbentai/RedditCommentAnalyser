@@ -14,6 +14,7 @@ In the case of PyCharm this can be done by opening up the IDE and navigating to 
 Usage
 -----------------------------
 The programs requires two main sources of input, 1st being the reddit url of the post you wish to extract the comments from and the 2nd being the starting name of the reports to be generated.
+
 Once fields are inputted the Scrape button can be clicked to scrape the comments and generate the positive and negative reports which are stored in the root folder of the project and showed in a popup window after generation. Old reports can also be loaded by clicking the Load Report button in the file pane
 
 Demo Video
