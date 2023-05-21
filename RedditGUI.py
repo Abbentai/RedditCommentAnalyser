@@ -1,4 +1,4 @@
-#Libraries used
+# Libraries used
 import nltk.tokenize
 import praw
 import re
@@ -14,8 +14,9 @@ from tkinter import *
 from tkinter.filedialog import askopenfilename
 from tkinter import ttk
 import sys
+import os
 
-#Arrays of comment with positive sentiment values
+# Arrays of comment with positive sentiment values
 authorList = []
 timeList = []
 dateList = []
@@ -25,7 +26,7 @@ commentsList = []
 emotiondictList = []
 emotionList = []
 
-#Arrays of comment with negative sentiment values
+# Arrays of comment with negative sentiment values
 nauthorList = []
 ntimeList = []
 ndateList = []
@@ -37,29 +38,25 @@ nemotionList = []
 
 sentimentList = []
 
-#GUI Variables
+# GUI Variables
 root = Tk()
 user_input = tk.StringVar()
 title_input = tk.StringVar()
 
-
-#Miscellaneous Variables and Objects
+# Miscellaneous Variables and Objects
 subreddit = ""
 fileName = ""
 sentAnalyze = SentimentIntensityAnalyzer()
 lemmatizer = WordNetLemmatizer()
 
-#Logic
 
-#Details to input for reddit api
-# def getVariables():
-
+# Logic
 
 def scrapeTopComments():
+    '''Scrapes the top comments on the given reddit link, validates the link, and adds each detail of the comment in the arrays'''
     global fileName
     global user_input
     global title_input
-    #continue on this, research tkinter variables
 
     url = user_input.get()
     title = title_input.get()
@@ -67,33 +64,30 @@ def scrapeTopComments():
     textEntry.config(text="Inserted url is invalid", fg="black")
     clearallRecords()
 
-    # url = user_input
-    #fileName = str(userInName)
-    #count should replace this with an alt account at some point
+    # Alternate Reddit Account Details
     reddit = praw.Reddit(client_id="iPfyY6F3cfaaB7X8CZnd1g",
                          client_secret="iYpu8Iu-yNxqxIO7yKQpGmQlDpoMeA",
                          user_agent=('rscraper by /u/Abbenzo'),
                          username="Alternative-Citron-9",
-                         password="mcastdoesnthavemyinfolol",)
+                         password="mcastdoesnthavemyinfolol", )
 
     try:
-        submission = reddit.submission(url=url)  #the usersubmitted post
-    except praw.exceptions.InvalidURL:
+        submission = reddit.submission(url=url)  # the usersubmitted post
+    except praw.exceptions.InvalidURL:  # in case url is invalid it prompts the user in the url text field to reinsert the url
         textEntry.config(fg="red", textvariable=user_input)
         textEntry.delete("0", "end")
         textEntry.insert(tk.END, "Inserted url is invalid")
         print("Inserted url is invalid")
-
         return
+
     print("Url to be Scraped: " + url)
     print("Title to be Scraped: " + title)
 
-    for top_level_comment in submission.comments: #retrieves every top level comments in the post
+    for top_level_comment in submission.comments:  # retrieves every top level comments in the post
         if isinstance(top_level_comment, MoreComments) or top_level_comment.body == "[deleted]":
             continue
 
-
-        #Converts UTC timestamp of the comment into seperate date and time variables
+        # Converts UTC timestamp of the comment into seperate date and time variables
         rDateTime = datetime.utcfromtimestamp(top_level_comment.created_utc)
         timeStr = rDateTime.strftime("%H:%M:%S")
         dateStr = rDateTime.strftime("%d/%m/%Y")
@@ -109,10 +103,12 @@ def scrapeTopComments():
 
         subreddit = top_level_comment.subreddit
 
+    print("Comments scraped")
     sentimentAnalysis(commentsList, subreddit)
 
-def formatBody(body):
 
+def formatBody(body):
+    '''Performs some basic formatting on the comment body, removing urls and any line breaks'''
     #removing all urls within the string
     urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', body)
     for url in urls:
@@ -124,6 +120,7 @@ def formatBody(body):
     return body
 
 def sentimentAnalysis(comments, subreddit):
+    '''Performs the Sentiment Analysis and Emotion Detection in each comment, converting the body to tokens, lemmatising it and performing the analysis from there'''
     for comment in comments:
         count = 0
         punc = '''!()-[]{};:'"\,<>./?@#$%^&*_~''' #string containing punctuation symbols
@@ -158,10 +155,11 @@ def sentimentAnalysis(comments, subreddit):
         emotionList.append(emotionValue.values())
 
         count += 1
+    print("Sentiment Analysis and Emotion Detection performed")
     splittingRecords()
 
 def clearallRecords():
-    # removes the contents of all records
+    '''Removes the contents of all previous records saved in the program'''
     records = [authorList, timeList, dateList, upvotesList, editedList, commentsList, emotiondictList, emotionList,
                nauthorList, ntimeList, ndateList, nupvotesList, neditedList, ncommentsList, nemotiondictList,
                nemotionList, sentimentList]
@@ -171,6 +169,7 @@ def clearallRecords():
 
 
 def cleariteminRecord(j):
+    '''Clears a record item from the lists'''
     popList = []
     listOfLists = [authorList,timeList,dateList, upvotesList, editedList,commentsList,emotiondictList,emotionList]
     for list in listOfLists:
@@ -180,6 +179,7 @@ def cleariteminRecord(j):
     return popList
 
 def addNegativeRecords(list):
+    '''Adds negative record details to seperate negative lists'''
     nauthorList.append(list[0])
     ntimeList.append(list[1])
     ndateList.append(list[2])
@@ -190,6 +190,7 @@ def addNegativeRecords(list):
     nemotionList.append(list[7])
 
 def splittingRecords():
+    '''Splits the Record Details into positive and negative'''
     global title_input
     j = 0
     while (j < len(commentsList)):
@@ -201,13 +202,25 @@ def splittingRecords():
             removedItemsList = cleariteminRecord(j)
             addNegativeRecords(removedItemsList)
 
-    reportGeneration("Positive_Reports//" + title_input.get() + "positivereport.json", authorList, timeList, dateList, upvotesList, editedList, commentsList,"Positive",emotiondictList)
-    reportGeneration("Negative_Reports//" + title_input.get() + "negativereport.json", nauthorList, ntimeList, ndateList, nupvotesList, neditedList, ncommentsList,"Negative", nemotiondictList)
+    try:
+        reportGeneration("Positive_Reports//" + title_input.get() + "positivereport.json", authorList, timeList, dateList, upvotesList, editedList, commentsList,"Positive",emotiondictList)
+    except:
+        os.makedirs("Positive_Reports")
+        reportGeneration("Positive_Reports//" + title_input.get() + "positivereport.json", authorList, timeList,
+                         dateList, upvotesList, editedList, commentsList, "Positive", emotiondictList)
+
+    try:
+        reportGeneration("Negative_Reports//" + title_input.get() + "negativereport.json", nauthorList, ntimeList, ndateList, nupvotesList, neditedList, ncommentsList, "Negative", nemotiondictList)
+    except:
+        os.makedirs("Negative_Reports")
+        reportGeneration("Negative_Reports//" + title_input.get() + "negativereport.json", nauthorList, ntimeList,
+                         ndateList, nupvotesList, neditedList, ncommentsList, "Negative", nemotiondictList)
+
+    print("Process Finished")
     print("-" * 60)
 
 def reportGeneration(reportName, aList, tList, dList, uList, eList, cList, senVal ,edList):
-    #writes a new json file which converts dictionaries that contain the comment details into json objects and formats them
-
+    '''Write a new JSON file which converts dictionaries that contain the comment details into json objects and formats them'''
     with open(reportName, "w") as outfile:
         reportName.lower().strip()
         commentDetails = []
@@ -227,21 +240,9 @@ def reportGeneration(reportName, aList, tList, dList, uList, eList, cList, senVa
         json.dump(commentDetails, outfile, indent=4)
     print(reportName + " is written")
 
-# def readCSV(file):
-#     #Reading the dataset
-#     with open(file) as csvfile:
-#         csv_reader = csv.reader(csvfile, delimiter=',')
-#         line_count = 0
-#         for row in csv_reader:
-#             if line_count == 0:
-#                 print(f'Column names are {", ".join(row)}')
-#                 line_count += 1
-#             else:
-#                 commentsList.append(row[0].strip())
-#                 line_count += 1
-
 #GUI
 def tableAdd(columns, records, table):
+    '''Creates table'''
     table.column("#0", width=0, stretch=NO)
     for column in columns:
         if (column == "Comment"):
@@ -264,7 +265,7 @@ def tableAdd(columns, records, table):
 
 
 def displayJSON(file):
-
+    '''Displays window for user to open a record file and displays the records in a table'''
     try:
         print("File to be opened: " + file)
         file = open(file)
@@ -294,6 +295,7 @@ def displayJSON(file):
     table.pack()
 
 def howToUse():
+    '''Displays how to use window'''
     howwin = Toplevel(root)
     howwin.title("Reddit Comment Analyser | How to Use")
     howwin.geometry("650x300")
@@ -311,6 +313,7 @@ def howToUse():
 
 
 def about():
+    '''Displays about window'''
     howwin = Toplevel(root)
     howwin.title("Reddit Comment Analyser | About Page")
     howwin.geometry("650x300")
@@ -330,13 +333,14 @@ def getFile():
     displayJSON(filename)
 
 def redirector(inputStr):
-    #inserts the current line from the text box into the text area and scrolls the box to the latest line
+    '''inserts the current line from the text box into the text area and scrolls the box to the latest line'''
     TextArea.insert(INSERT, inputStr)
     TextArea.see("end")
 
 #calls function when written to terminal
 sys.stdout.write = redirector
 
+##Creating the Main Window
 root.title("Reddit Comment Analyser")
 root.geometry("600x400")
 
