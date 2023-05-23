@@ -1,7 +1,9 @@
 # RedditCommentAnalyser
 This is a simple python project which scrapes top level comments from Reddit, performs basic sentiment analysis along with emotion detection and generates two reports based on the sentimentality. Made for MCAST Project Unit.
-![image](https://github.com/Abbentai/RedditCommentAnalyser/assets/104551802/d0966291-db21-4e1b-be63-5bd3a47ed163)
 
+<p align="center">
+  <img src="https://cdn.discordapp.com/attachments/758289671591034910/1110545727546986526/240278142-c8977c37-36cc-4847-9930-80c918b25e73.png">
+</p>
 
 **Installation**
 -----------------------------
