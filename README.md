@@ -27,4 +27,7 @@ Youtube Link Here
 
 Project Flow Chart
 -----------------------------
-![image](https://github.com/Abbentai/RedditCommentAnalyser/assets/104551802/b033e0e5-5fe8-4b4f-8dba-bd8bf734f095)
+
+<p align="center">
+  <img src="https://cdn.discordapp.com/attachments/758289671591034910/1110546435960741950/239742577-b033e0e5-5fe8-4b4f-8dba-bd8bf734f095.png">
+</p>
