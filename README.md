@@ -23,7 +23,7 @@ Once fields are inputted the Scrape button can be clicked to scrape the comments
 
 Demo Video
 -----------------------------
-Youtube Link Here
+[Youtube Link Here](https://www.youtube.com/watch?v=B3JMBYI2XFM)
 
 Project Flow Chart
 -----------------------------
