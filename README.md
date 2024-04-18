@@ -2,7 +2,7 @@
 This is a simple python project which scrapes top level comments from Reddit, performs basic sentiment analysis along with emotion detection and generates two reports based on the sentimentality. Made for MCAST Project Unit.
 
 <p align="center">
-  <img src="https://cdn.discordapp.com/attachments/758289671591034910/1110545727546986526/240278142-c8977c37-36cc-4847-9930-80c918b25e73.png">
+  ![240278142-c8977c37-36cc-4847-9930-80c918b25e73](https://github.com/Abbentai/RedditCommentAnalyser/assets/104551802/15a20838-5bf9-48e9-9e5c-55485386eadf)
 </p>
 
 **Installation**
@@ -20,7 +20,7 @@ How to Use
 The programs requires two main sources of input, 1st being the reddit url of the post you wish to extract the comments from and the 2nd being the starting name of the reports to be generated.
 
 Once fields are inputted the Scrape button can be clicked to scrape the comments and generate the positive and negative reports which are stored in the root folder of the project and showed in a popup window after generation. Old reports can also be loaded by clicking the Load Report button in the file pane
-
+  
 Demo Video
 -----------------------------
 [Youtube Link Here](https://www.youtube.com/watch?v=B3JMBYI2XFM)
@@ -29,5 +29,5 @@ Project Flow Chart
 -----------------------------
 
 <p align="center">
-  <img src="https://cdn.discordapp.com/attachments/758289671591034910/1110546435960741950/239742577-b033e0e5-5fe8-4b4f-8dba-bd8bf734f095.png">
+  <img src="![projectFlowChart drawio](https://github.com/Abbentai/RedditCommentAnalyser/assets/104551802/739ae27e-a9e7-46a4-8284-efdfaec0ee2e)">
 </p>
