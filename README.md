@@ -29,6 +29,6 @@ Project Flow Chart
 -----------------------------
 
 <p align="center">
-  <img width="50%" height="50%" src="https://cdn.discordapp.com/attachments/931991165832659034/1230532345518624819/239742577-b033e0e5-5fe8-4b4f-8dba-bd8bf734f095.png?ex=6633a98d&is=6621348d&hm=afe687b79d3604dd4acb3aebff7285d45e1f7f1831ddaae76cdfacfe68c9664f&">
+  <img width="50%" height="50%" src="/projectFlowChart.drawio.png">
 </p>
 
